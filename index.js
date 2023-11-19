@@ -1,5 +1,5 @@
 import { createClient } from 'redis'
-import { decrbyCommand } from './utils/string.js'
+import { getDelCommand } from './utils/string.js'
 
 const client = await createClient({
   password: 'iKWFYiqX9J9XIHHDjERkmgAB3o8jjsF7',
@@ -11,6 +11,6 @@ const client = await createClient({
   .on('error', (err) => console.log('Redis Client Error', err))
   .connect()
 
-await decrbyCommand(client, 10)
+await getDelCommand(client)
 
 await client.disconnect()

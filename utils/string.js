@@ -24,9 +24,10 @@ export const decrbyCommand = async (client, byNum) => {
   }
 }
 
-export const getDelCommand = async (client, byNum) => {
+export const getDelCommand = async (client) => {
   try {
-    const res = await client.DECRBY('string_decr', byNum)
+    console.log('get delllll')
+    const res = await client.GETDEL('string_decr1')
     console.log(res)
   } catch (e) {
     console.log(e)
