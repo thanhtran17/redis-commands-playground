@@ -1,4 +1,4 @@
-export const appendCommand = async (client) => {
+const appendCommand = async (client) => {
   try {
     await Promise.all([client.APPEND('bike:1', 'test')])
   } catch (e) {
@@ -6,7 +6,7 @@ export const appendCommand = async (client) => {
   }
 }
 
-export const decrCommand = async (client) => {
+const decrCommand = async (client) => {
   try {
     const res = await client.DECR('string_decr')
     console.log(res)
@@ -15,7 +15,7 @@ export const decrCommand = async (client) => {
   }
 }
 
-export const decrbyCommand = async (client, byNum) => {
+const decrbyCommand = async (client, byNum) => {
   try {
     const res = await client.DECRBY('string_decr', byNum)
     console.log(res)
@@ -24,9 +24,8 @@ export const decrbyCommand = async (client, byNum) => {
   }
 }
 
-export const getDelCommand = async (client) => {
+const getDelCommand = async (client) => {
   try {
-    console.log('get delllll')
     const res = await client.GETDEL('string_decr1')
     console.log(res)
   } catch (e) {
@@ -34,4 +33,20 @@ export const getDelCommand = async (client) => {
   }
 }
 
-export const redisStringCommands = { appendCommand, decrCommand, decrbyCommand }
+// Hàm này sử dụng chung với hàm set, sau khi set sẽ get luôn với timestamp, hết timestamp sẽ tự động xoá trong db luôn
+const getExCommand = async (client) => {
+  try {
+    const res = await client.GETEX('bike:1', 'EX', 60)
+    console.log(res)
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const redisStringCommands = {
+  appendCommand,
+  decrCommand,
+  decrbyCommand,
+  getDelCommand,
+  getExCommand,
+}
