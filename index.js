@@ -1,4 +1,5 @@
 import { createClient } from 'redis'
+import { redisJSONCommand } from './src/utils/json.js'
 
 const client = await createClient({
   password: 'iKWFYiqX9J9XIHHDjERkmgAB3o8jjsF7',
@@ -9,6 +10,7 @@ const client = await createClient({
 })
   .on('error', (err) => console.log('Redis Client Error', err))
   .connect()
-const res = await client.INFO()
-console.log(res)
+
+await redisJSONCommand.numIncrByCommand(client, 'cio-digest:sent', '$.today')
+
 await client.disconnect()
